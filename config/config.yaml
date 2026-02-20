@@ -1,0 +1,14 @@
+env: local
+
+http:
+  port: "8081"
+
+telegram:
+  bot_token: "8201372973:AAEKoOsy7KFQNX_AeTPEr-GLhCzuTexdEoA"
+  bot_username: "aqquiryq_bot"
+  channel_id: -1003814950604
+
+database:
+  dsn: "postgres://miko:miko@localhost:5433/postgres"
+
+base_url: "http://localhost:8080"
