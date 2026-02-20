@@ -10,7 +10,6 @@ import (
 	"github.com/Nazhgam/aqquiryq_bot/internal/config"
 	"github.com/Nazhgam/aqquiryq_bot/internal/http/handlers"
 	"github.com/Nazhgam/aqquiryq_bot/internal/repo"
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/gorilla/mux"
 )
 

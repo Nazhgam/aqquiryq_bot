@@ -59,6 +59,7 @@ func Run(ctx context.Context, cfg *config.Config) error {
 	telegramBot := bot.New(api, userService, contentService)
 
 	go telegramBot.Start(ctx)
+	//go http.Start(ctx, cfg, telegramBot, userRepo, contentRepo)
 
 	log.Println("Application started")
 

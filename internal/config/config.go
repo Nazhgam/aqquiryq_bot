@@ -30,14 +30,38 @@ type Database struct {
 }
 
 func Load(path string) (*Config, error) {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return nil, fmt.Errorf("read config file: %w", err)
+	var cfg Config
+
+	// Попытка загрузить из YAML, если файл существует
+	if _, err := os.Stat(path); err == nil {
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return nil, fmt.Errorf("read config file: %w", err)
+		}
+		if err := yaml.Unmarshal(data, &cfg); err != nil {
+			return nil, fmt.Errorf("parse config file: %w", err)
+		}
 	}
 
-	var cfg Config
-	if err := yaml.Unmarshal(data, &cfg); err != nil {
-		return nil, fmt.Errorf("parse config file: %w", err)
+	// Переопределение из переменных окружения
+	if env := os.Getenv("ENV"); env != "" {
+		cfg.Env = env
+	}
+	if port := os.Getenv("PORT"); port != "" {
+		if port[0] != ':' {
+			cfg.HTTP.Port = ":" + port
+		} else {
+			cfg.HTTP.Port = port
+		}
+	}
+	if token := os.Getenv("BOT_TOKEN"); token != "" {
+		cfg.Telegram.BotToken = token
+	}
+	if dsn := os.Getenv("DATABASE_URL"); dsn != "" {
+		cfg.Database.DSN = dsn
+	}
+	if baseURL := os.Getenv("BASE_URL"); baseURL != "" {
+		cfg.BaseURL = baseURL
 	}
 
 	if err := cfg.validate(); err != nil {
