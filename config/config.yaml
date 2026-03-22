@@ -1,0 +1,14 @@
+env: local
+
+http:
+  port: "8080"
+
+telegram:
+  bot_token: ""   # убираем отсюда
+  bot_username: "aqquiryq_bot"
+  channel_id: -1003814950604
+
+database:
+  dsn: ""   # убираем
+
+base_url: ""
